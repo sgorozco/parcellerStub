@@ -1,13 +1,14 @@
 # parcellerStub
-Just a stub for quickly sharing some 
+Just a stub for quickly sharing some code.
+
 Not compilable, as there are plenty of dependencies that I'm not ready to share, however the parcelling logic is visible and may serve as inspiration ;)
 
 
-The RequestParceller related classes provide basic WCF parcelling request services.
+The `RequestParceller` related classes provide basic WCF parcelling request services.
 Use these classes to reduce WCF chattiness by bundling multiple, related WCF service calls from multiple threads into a single call.
 
 IMPORTANT:
-By default, logging to log4net is disabled. To enable logging set the UseLog4Net property to true. The reason for
+By default, logging to log4net is disabled. To enable logging set the `UseLog4Net` property to true. The reason for
 this default configuration is that a common use for this class is parcelling log events that will be sent to a
 remote viewer via WCF. If we log in this class, we will trigger an infinite cascade of logging events and will
 degrade system performance greatly. If the parceller is not forwarding log events, it is safe to set this property
@@ -22,9 +23,9 @@ The provided WCF service inteface must expose a WCF operation that can receive a
 (data-transmission-objects) instances (one for each parcelled request).
 
 The classes are abstract. A concrete implementation of the class must be supplied, overriding the
-SendParcelToWCFService() method.  The SendParcelToWCFService() method must call the WCF service by means of the
+`SendParcelToWCFService()` method.  The `SendParcelToWCFService()` method must call the WCF service by means of the
  _service member, passing the DTO objects available in the parcelled tuples.  After the WCF call is completed,
-the overriden SendParcelToWCFService() method must set the results of the WCF call into the TaskCompletionSource
+the overriden `SendParcelToWCFService()` method must set the results of the WCF call into the `TaskCompletionSource
 (TCO tuple member) objects in the corresponding parcelled tuples.  This action will resume all the multiple,
 individual calls that are awaiting for their requests to be fulfilled.
 
